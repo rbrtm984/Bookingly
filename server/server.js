@@ -5,7 +5,21 @@ const app = express();
 const path = require('path');
 const { Pool } = require('pg');
 const fs = require('fs');
+const { Server } = require('socket.io');
+const cors = require('cors');
+
+app.use(cors());
+
 const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+// const io = require('socket.io')(server);
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:8080',
+  },
+});
 
 // configuration object for database initialization
 const dbConfig = {
@@ -18,7 +32,7 @@ const dbConfig = {
       rejectUnauthorized: true,
       ca: fs.readFileSync('us-east-2-bundle.pem').toString()
     }
-}
+};
 
 // console.log('Database configuration:', dbConfig);
 
@@ -39,10 +53,13 @@ pool.connect((err, client, release) => {
     });
   });
 
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'index.html'));
-});
+  io.on('connection', (socket) => {
+    console.log('New user connected');
+    console.log(socket.id);
+  });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+app.use(express.static(path.join(__dirname, 'index.html')));
+
+
+
