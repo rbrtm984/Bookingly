@@ -5,14 +5,10 @@ import './style.css'
 const App = () => {
     return (
         <>
-         <h1 class="text-3xl font-bold underline">
-            Hello world!
+         <h1 class="text-3xl underline">
+            Code and Kart! 
         </h1>
-        
-      </>
-      
-        
-       
+        </>
     )
 }
 
