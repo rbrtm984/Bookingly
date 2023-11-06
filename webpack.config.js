@@ -34,8 +34,8 @@ module.exports = {
                     ['@babel/preset-react', {targets:"defaults"}]]}
                 }},
             {
-            test: /\.css$/, // styles files
-            use: ["style-loader", "css-loader"], 
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader', 'postcss-loader'], 
             },
         ]
     }
