@@ -15,7 +15,7 @@ kartController.getRaceSchedule = async (req, res, next) => {
     const scheduleQuery = `SELECT r.id as race_id, r.date, r.slot, r.winner, r.reporter, p.user_id
     FROM races r
     JOIN participants p ON r.id = p.race_id
-    WHERE r.date = '2023-11-08'`;
+    WHERE r.date = '2023-11-09'`;
 
     const scData = await db.query(scheduleQuery);
     console.log('Data ', scData.rows);
