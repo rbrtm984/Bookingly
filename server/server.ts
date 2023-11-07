@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
-const loginController = require('./controllers/loginController');
-
+const authRouter = require('./routes/auth');
 
 console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
 console.log(path.join(__dirname, '..', 'client', 'dist'))
@@ -16,12 +15,7 @@ app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 
-// test endpoint
-app.get('/test', loginController.getUser, (req: Request, res: Response) => {
-  console.log('server file')
-  res.status(200).send(res.locals.data);
-});
-
+app.use('/auth', authRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
