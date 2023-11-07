@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import { Pool, PoolClient, QueryResult } from 'pg';
-import { readFileSync } from 'fs';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import { Server } from 'socket.io';
 import cors from 'cors';
@@ -43,31 +40,10 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 
-// console.log('Database configuration:', dbConfig);
+app.use('/auth', authRouter);
 
-const pool = new Pool(dbConfig);
-
-// Testing connection
-pool.connect((err: Error | undefined, client: PoolClient | undefined, release: () => void) => {
-    if (err) {
-      return console.error('Error acquiring client', err.stack);
-    }
-    if (!client) {
-      return console.error('Client is undefined');
-    }
-    console.log('Database connected successfully with SSL!');
-    client.query('SELECT NOW()', (err: Error, result: QueryResult) => {
-      release();
-      if (err) {
-        return console.error('Error executing query', err.stack);
-      }
-      console.log(result.rows);
-    });
-  });
-
-//Websocket connection logs new user id
-io.on('connection', (socket) => {
-  console.log('New user connected ', socket.id);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 
