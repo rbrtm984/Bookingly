@@ -8,6 +8,8 @@ const express_1 = __importDefault(require("express"));
 const pg_1 = require("pg");
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
+console.log(path_1.default.join(__dirname, '..', 'client', 'dist', 'index.html'));
+console.log(path_1.default.join(__dirname, '..', 'client', 'dist'));
 // load .env variables
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -24,6 +26,11 @@ const dbConfig = {
         ca: (0, fs_1.readFileSync)('us-east-2-bundle.pem').toString() // .pem file available in slack
     }
 };
+app.use(express_1.default.static(path_1.default.join(__dirname, '..', 'client', 'dist')));
+app.get('/', (req, res) => {
+    console.log(path_1.default.join(__dirname, '..', 'client', 'dist', 'index.html'));
+    res.sendFile(path_1.default.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
 // console.log('Database configuration:', dbConfig);
 const pool = new pg_1.Pool(dbConfig);
 // Testing connection
@@ -43,10 +50,11 @@ pool.connect((err, client, release) => {
         console.log(result.rows);
     });
 });
-app.use(express_1.default.static(path_1.default.join(__dirname, '..', 'client', 'dist')));
-app.get('/', (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, '..', 'client', 'dist', 'index.html'));
-});
+// app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+// app.get('/', (req: Request, res: Response) => {
+//   console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+//   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// });
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
