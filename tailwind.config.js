@@ -7,7 +7,11 @@ module.exports = {
     fontFamily: {
       sans: ['Inter var', ...defaultTheme.fontFamily.sans]
     },
-    extend: {},
+    extend: {
+      colors: {
+        'custom-turq': "#9CD1DA"
+      }
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 }
