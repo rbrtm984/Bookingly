@@ -13,6 +13,7 @@ const server = app.listen(PORT, () => {
 });
 
 const authRouter = require('./routes/auth');
+const kartRouter = require('./routes/kart');
 
 const io = new Server(server, {
   cors: {
@@ -20,15 +21,20 @@ const io = new Server(server, {
   },
 });
 
+io.on('connection', (socket) => {
+  console.log(`A new user has connected  ${socket.id}`);
+});
+
 
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 app.use('/auth', authRouter);
+app.use('/kart', kartRouter);
 
-app.get('/', (req, res, next) => {
-  console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
-});
+// app.get('/', (req, res, next) => {
+//   console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+//   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// });
 
 
 

@@ -1,16 +1,18 @@
 import * as React from "react";
-import { createRoot } from 'react-dom/client';
+// import { createRoot } from 'react-dom/client';
+import Home from './features/Home/Home';
 import { io, Socket } from 'socket.io-client';
 
 const socket: Socket = io('http://localhost:3000');
 
 
-const App: React.FC = () => {
+function App() {
     return (
-        <>
-            <h1>Kart and Code!</h1>
-        </>
+      <div className="App">
+        <Home />
+      </div>
     );
-};
+  }
 
 export default App;
+
