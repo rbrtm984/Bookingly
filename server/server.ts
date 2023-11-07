@@ -36,6 +36,13 @@ const dbConfig = {
     }
 }
 
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+app.get('/', (req: Request, res: Response) => {
+  console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
+
 // console.log('Database configuration:', dbConfig);
 
 const pool = new Pool(dbConfig);
@@ -63,10 +70,11 @@ io.on('connection', (socket) => {
   console.log(socket.id);
 });
 
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+// app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-app.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
-});
+// app.get('/', (req: Request, res: Response) => {
+//   console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+//   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// });
 
 
