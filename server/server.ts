@@ -38,7 +38,7 @@ const dbConfig = {
 
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req, res, next) => {
   console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 });
@@ -65,16 +65,12 @@ pool.connect((err: Error | undefined, client: PoolClient | undefined, release: (
     });
   });
 
+//Websocket connection logs new user id
 io.on('connection', (socket) => {
-  console.log('New user connected');
-  console.log(socket.id);
+  console.log('New user connected ', socket.id);
 });
 
-// app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-// app.get('/', (req: Request, res: Response) => {
-//   console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
-//   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
-// });
+
 
 
