@@ -1,5 +1,5 @@
 import React from 'react';
-import CalendarAlt from '../Signup/Signup';
+import Signup from '../Signup/Signup';
 /*
   This example requires some changes to your config:
   
@@ -323,7 +323,7 @@ export default function Home() {
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
                     <div className="p-6">
-                        <CalendarAlt />
+                        <Signup />
                     </div>
                   </div>
                 </section>
