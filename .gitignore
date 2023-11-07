@@ -1,3 +1,23 @@
-node_modules
+# Dependency directories
+node_modules/
+
+# Environment configuration
 .env
-us-east-2-bundle.pem
+
+# Build output
+dist/
+client/dist/
+
+# Mac files
+.DS_Store
+
+# Logs
+npm-debug.log*
+
+# IDE / editors
+.vscode/
+
+# Optional npm cache directory
+.npm
+
+us-east-2-bundle.pdm
