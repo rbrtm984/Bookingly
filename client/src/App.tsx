@@ -1,6 +1,5 @@
 // src/App.jsx
 import React from "react";
-// Import your components and hooks here
 
 const App: React.FC = () => {
     return (
