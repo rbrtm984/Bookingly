@@ -1,12 +1,13 @@
-// App.tsx
-import * as React from "react";
+// src/App.jsx
+import React from "react";
+// Import your components and hooks here
 
-const App = () => {
-  return (
-    <div>
-      <h1 className="text-5xl .test-bg">Kart and Code</h1>
-      <div className="text-lg md:text-lg bg-blue-500 hover:bg-blue-700">Hello</div>
-    </div>
-  )
+const App: React.FC = () => {
+    return (
+        <>
+            <h1>Kart and Code!</h1>
+        </>
+    );
 };
+
 export default App;
