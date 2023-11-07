@@ -4,6 +4,9 @@ import { Pool, PoolClient, QueryResult } from 'pg';
 import { readFileSync } from 'fs';
 import path from 'path';
 
+console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+console.log(path.join(__dirname, '..', 'client', 'dist'))
+
 // load .env variables
 dotenv.config();
 
@@ -22,6 +25,13 @@ const dbConfig = {
       ca: readFileSync('us-east-2-bundle.pem').toString() // .pem file available in slack
     }
 }
+
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+app.get('/', (req: Request, res: Response) => {
+  console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
 
 // console.log('Database configuration:', dbConfig);
 
@@ -45,11 +55,12 @@ pool.connect((err: Error | undefined, client: PoolClient | undefined, release: (
     });
   });
 
-  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+// app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
-});
+// app.get('/', (req: Request, res: Response) => {
+//   console.log(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+//   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

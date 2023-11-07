@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './App'; // Assuming App is now a .tsx file
 import store from './app/store'; // The store setup with Redux Toolkit
-import './index.css'; // Assuming you have global styles in index.css
+import './style.css'; // Assuming you have global styles in index.css
 
 // Create a root.
 const container = document.getElementById('root');
