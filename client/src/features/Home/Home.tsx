@@ -1,5 +1,5 @@
 import React from 'react';
-import CalendarAlt from '../CalendarAlt/Signup';
+import CalendarAlt from '../Signup/Signup';
 /*
   This example requires some changes to your config:
   
