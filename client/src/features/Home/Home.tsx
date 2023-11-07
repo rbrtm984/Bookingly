@@ -1,4 +1,5 @@
 import React from 'react';
+import CalendarAlt from '../CalendarAlt/Signup';
 /*
   This example requires some changes to your config:
   
@@ -36,15 +37,15 @@ const user: User = {
   name: 'Tom Cook',
   email: 'tom@example.com',
   imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ed991cf4-7c8c-4530-b6ba-a3abf3ab2eae/dcl6q6l-23159f33-3a50-4afd-bffe-cbc31f1e4aff.png/v1/fit/w_600,h_719/super_mario__toad_icon_2d_by_joshuat1306_dcl6q6l-375w-2x.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzE5IiwicGF0aCI6IlwvZlwvZWQ5OTFjZjQtN2M4Yy00NTMwLWI2YmEtYTNhYmYzYWIyZWFlXC9kY2w2cTZsLTIzMTU5ZjMzLTNhNTAtNGFmZC1iZmZlLWNiYzMxZjFlNGFmZi5wbmciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.41JDxc_uIdUZvcAcfIEx9-3Q4LsOsOLI_OQ-_zMfWVI',
 }
-const navigation: NavigationItem[] = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Profile', href: '#', current: false },
-  { name: 'Resources', href: '#', current: false },
-  { name: 'Company Directory', href: '#', current: false },
-  { name: 'Openings', href: '#', current: false },
-]
+// const navigation: NavigationItem[] = [
+//   { name: 'Home', href: '#', current: true },
+//   { name: 'Profile', href: '#', current: false },
+//   { name: 'Resources', href: '#', current: false },
+//   { name: 'Company Directory', href: '#', current: false },
+//   { name: 'Openings', href: '#', current: false },
+// ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
@@ -67,7 +68,7 @@ export default function Home() {
         ```
       */}
       <div className="min-h-full">
-        <Popover as="header" className="bg-indigo-600 pb-24">
+        <Popover as="header" className="bg-custom-turq pb-24">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -78,19 +79,17 @@ export default function Home() {
                     <a href="#">
                       <span className="sr-only">Kart and Code</span>
                       <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
+                        className="h-32 w-auto rounded-full"
+                        src="https://i.imgur.com/nO90U18.png"
                         alt="Your Company"
                       />
                     </a>
-
-                  <h2 className="text-2xl font-medium leading-6 text-indigo-200">Kart and Code</h2>
                   </div>
                   {/* Right section on desktop */}
                   <div className="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
                     <button
                       type="button"
-                      className="relative flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                      className="relative flex-shrink-0 rounded p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                     >
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
@@ -103,7 +102,7 @@ export default function Home() {
                         <Menu.Button className="relative flex rounded-full bg-white text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                          <img className="h-16 w-16 rounded-full" src={user.imageUrl} alt="" />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -171,21 +170,6 @@ export default function Home() {
                 <div className="hidden border-t border-white border-opacity-20 py-5 lg:block">
                   <div className="grid grid-cols-3 items-center gap-8">
                     <div className="col-span-2">
-                      <nav className="flex space-x-4">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current ? 'text-white' : 'text-indigo-100',
-                              'rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
-                      </nav>
                     </div>
                     <div>
                       <div className="mx-auto w-full max-w-md">
@@ -338,7 +322,9 @@ export default function Home() {
                     Section title
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
-                    <div className="p-6">{/* Your content */}</div>
+                    <div className="p-6">
+                        <CalendarAlt />
+                    </div>
                   </div>
                 </section>
               </div>
@@ -350,7 +336,9 @@ export default function Home() {
                     Section title
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
-                    <div className="p-6">{/* Your content */}</div>
+                    <div className="p-6">
+
+                    </div>
                   </div>
                 </section>
               </div>
