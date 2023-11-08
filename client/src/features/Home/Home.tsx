@@ -1,23 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSignups, selectSignups } from '../Signup/signupSlice'
+import { AppDispatch } from '../../app/store';
 import Signup from '../Signup/Signup';
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import Error from '../Error/Error';
 import { Fragment } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+
+
 
 interface User {
     name: string;
@@ -32,6 +25,8 @@ current: boolean;
 }
 
 type UserNavigationItem = NavigationItem;
+
+type Slots = Record<string, number[]>;
 
 const user: User = {
   name: 'Tom Cook',
@@ -57,16 +52,14 @@ function classNames(...classes: (string | null | undefined)[]): string {
 }
 
 export default function Home() {
+  const dispatch = useDispatch<AppDispatch>();
+  const [slots, setSlots] = useState<Slots>({});
+  const handleFetchSignups = () => {
+    dispatch(fetchSignups());
+  }
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <Popover as="header" className="bg-custom-turq pb-24">
           {({ open }) => (
@@ -323,7 +316,11 @@ export default function Home() {
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
                     <div className="p-6">
-                        <Signup />
+                      <ErrorBoundary
+                          fallbackRender={({ error }) => <Error error={error.message}/>}
+                      > 
+                        <Signup slots={slots} handleFetchSignups={handleFetchSignups}/>
+                      </ErrorBoundary>
                     </div>
                   </div>
                 </section>

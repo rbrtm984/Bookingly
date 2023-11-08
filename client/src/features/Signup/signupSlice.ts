@@ -9,12 +9,14 @@ const initialState: SignupState = {
 };
 
 export const fetchSignups = createAsyncThunk(
-    'signup/fetchSignups',
+    'kart/schedule',
     async ( _ , { rejectWithValue }) => {
         try {
-            const response = await fetch('/api/path-to-signups');
+            const response = await fetch('/kart/schedule');
+            console.log('response', response);
             if (!response.ok) throw new Error('Network response was not ok');
             const data: RaceSignup[] = await response.json();
+            console.log('this is the data returned in fetchSignups', data);
             return data;
         } catch (error: any) {
             return rejectWithValue(error.message);
