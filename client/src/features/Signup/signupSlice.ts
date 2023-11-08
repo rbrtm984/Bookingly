@@ -62,7 +62,7 @@ export const signupForRace = createAsyncThunk(
     async ({ timeId, raceSlot, username }: { timeId: string, raceSlot: string, username: string }, { rejectWithValue }) => {
         try {
             const body = { timeId, raceSlot, username };
-            const response = await fetch(`/kart/addparticipant`, { 
+            const response = await fetch('/kart/addparticipant', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
