@@ -1,13 +1,18 @@
 const db = require('../models/kartModel');
 const kartController = {};
 
-// kartController.getLeaderBoard = async(req, res, next) => {
-//   try {
+kartController.getLeaderBoard = async(req, res, next) => {
+  try {
+    const leaderQuery = `SELECT id, username, avatar, current_rank FROM users ORDER BY current_rank DESC;`;
+    const leaderData = await db.query(leaderQuery);
+    console.log(leaderData);
+    res.locals.leaderBoard = leaderData.rows.slice(0, 4);
+    return next();
 
-//   } catch (error) {
-//     return next({ message: { err: 'error getting Leader Board' } });
-//   }
-// };
+  } catch (error) {
+    return next({ message: { err: 'error getting Leader Board' } });
+  }
+};
 
 kartController.getRaceSchedule = async (req, res, next) => {
   try {
@@ -15,7 +20,7 @@ kartController.getRaceSchedule = async (req, res, next) => {
     const scheduleQuery = `SELECT r.id as race_id, r.date, r.slot, r.winner, r.reporter, p.user_id
     FROM races r
     JOIN participants p ON r.id = p.race_id
-    WHERE r.date = '2023-11-09'`;
+    WHERE r.date = '2023-11-08'`;
 
     const scData = await db.query(scheduleQuery);
     console.log('Data ', scData.rows);
@@ -85,7 +90,7 @@ kartController.getRaceSchedule = async (req, res, next) => {
     return next();
 
   } catch (error) {
-    return next({ message: { err: 'error getting Leader Board' } });
+    return next({ message: { err: 'error getting Race Schedule' } });
   }
 };
 
