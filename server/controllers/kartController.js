@@ -96,7 +96,7 @@ kartController.getRaceSchedule = async (req, res, next) => {
       }
     })
 
-    console.log('Object ', scheduleObj);
+    // console.log('Object ', scheduleObj);
     res.locals.schedule = scheduleObj;
     return next();
 
