@@ -91,7 +91,7 @@ export default function Home() {
       />
       </div>
       <div>
-        <h4 className='text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg'>{entry.username}</h4>
+        <h4 className='w-auto text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-2 rounded-lg'>{entry.username}</h4>
         <p className="mt-1">
         </p>
       </div>
@@ -111,7 +111,6 @@ export default function Home() {
           {({ open }) => (
             <>
               <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                <div>TOP OF PAGE</div>
                 <div className="relative flex items-center justify-center py-5 lg:justify-between">
                 {/* Logo and Title container */}
                 <div className="flex items-center flex-shrink-0 lg:static">
@@ -351,29 +350,9 @@ export default function Home() {
           )}
         </Popover>
         <main className="-mt-24 pb-8">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8"><div className="flex items-center justify-center">
-  <a href="https://fontmeme.com/super-mario-font/">
-    <img
-      src="https://fontmeme.com/permalink/231107/f61ef88c7ff7cbfe64bf727f0bf8eb97.png"
-      alt="super-mario-font-displaying-LEADERBOARD"
-    />
-  </a>
-</div>
-<div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div>
-  <div className="sm:flex"><div className='text-transparent'>..........................</div>
-  <div><img src="https://fontmeme.com/permalink/231108/15fbbb0c2da31243b209c76da134678e.png"/>
-  {leaderArray[0]}</div>
-    </div>
-  </div>    <div className="sm:flex"><div className='text-transparent'>...................................................</div>
-  <div><img src="https://fontmeme.com/permalink/231108/5e7d5f3d27c0457e431722fca91b8b3a.png"/>
-    {leaderArray[1]}</div>
-    </div>    <div className="sm:flex"><div className='text-transparent'>..........................................................................................</div>
-    <div><img src="https://fontmeme.com/permalink/231108/3ea8864e1dc4a58ff7cbeaf4386ab82f.png"/>
-      {leaderArray[2]}</div>
-    </div>   <div className="sm:flex"><div className='text-transparent'>...............................................................................................................</div>
-    <div><img src="https://fontmeme.com/permalink/231108/f3fc949c9727b56ccc8b6d679300309c.png"/>
-      {leaderArray[3]}</div>
-    </div></div>
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+
+
             <h1 className="sr-only">Page title</h1>
             {/* Main 3 column grid */}
             <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
@@ -403,7 +382,30 @@ export default function Home() {
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
                     <div className="p-6">
-
+                      <div className="flex items-center justify-center">
+                        <a href="https://fontmeme.com/super-mario-font/">
+                          <img
+                            src="https://fontmeme.com/permalink/231107/f61ef88c7ff7cbfe64bf727f0bf8eb97.png"
+                            alt="super-mario-font-displaying-LEADERBOARD"
+                          />
+                        </a>
+                      </div>
+                      <div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div>
+                        <div className="sm:flex"><div className='text-transparent'></div>
+                        <div><img src="https://fontmeme.com/permalink/231108/15fbbb0c2da31243b209c76da134678e.png"/>
+                        {leaderArray[0]}</div>
+                          </div>
+                        </div>    <div className="sm:flex"><div className='text-transparent'>...</div>
+                        <div><img src="https://fontmeme.com/permalink/231108/5e7d5f3d27c0457e431722fca91b8b3a.png"/>
+                          {leaderArray[1]}</div>
+                          </div>    <div className="sm:flex"><div className='text-transparent'>......</div>
+                          <div><img src="https://fontmeme.com/permalink/231108/3ea8864e1dc4a58ff7cbeaf4386ab82f.png"/>
+                            {leaderArray[2]}</div>
+                          </div>   <div className="sm:flex"><div className='text-transparent'>........</div>
+                          <div><img src="https://fontmeme.com/permalink/231108/f3fc949c9727b56ccc8b6d679300309c.png"/>
+                            {leaderArray[3]}</div>
+                          </div>
+                      </div>
                     </div>
                   </div>
                 </section>
