@@ -65,9 +65,9 @@ const Signup = () => {
                   {racers.map((racer, racerIndex) => (
                     <dd key={racerIndex} className="text-center bg-blue-500 rounded-sm text-gray-200">{racer}</dd>
                   ))}
-                  {[...Array(maxRacersPerRace - racers.length)].map((_, index) => (
-                    <dd key={`empty-${index}`} className="text-center bg-green-200 rounded-sm text-gray-400 italic">Available</dd>
-                  ))}
+                    {/* {[...Array(maxRacersPerRace - racers.length)].map((_, index) => (
+                      <dd key={`empty-${index}`} className="text-center bg-green-200 rounded-sm text-gray-400 italic">Available</dd>
+                    ))} */}
                   <div className="px-6 py-3 flex justify-center">
                     <button
                         type="button"
