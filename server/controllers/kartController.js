@@ -14,11 +14,11 @@ const kartController = {};
 
 kartController.addRaceParticipant = async(req, res, next) => {
   try {
-    const { slot, username } = req.body;
+    const { race, username } = req.body;
 
     //Get race ID for selected race
     const raceIdQuery = `SELECT * FROM races WHERE date = '2023-11-08' AND slot = $1`
-    const raceIdObj = await db.query(raceIdQuery, [slot]);
+    const raceIdObj = await db.query(raceIdQuery, [race]);
     const raceID = raceIdObj.rows[0]['id'];
 
     //Get user ID that corresponds to username
@@ -67,7 +67,7 @@ kartController.getRaceSchedule = async (req, res, next) => {
     //Helper function to convert db output to id:user object
     let currIdToUserName = userNameToIdFunc(userData.rows);
 
-    //Populate scheduleObj with races slots
+    //Populate scheduleObj with races
     let scheduleObj = {};
     scData.rows.forEach((el) => {
       if (el.slot[0] === "L" && !scheduleObj.lunch) scheduleObj.lunch = {};
@@ -76,54 +76,54 @@ kartController.getRaceSchedule = async (req, res, next) => {
       
       switch (el.slot) {
         case 'L1' :
-          if (!scheduleObj.lunch.slot1) scheduleObj.lunch.slot1 = []; 
-          scheduleObj.lunch.slot1.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.lunch.race1) scheduleObj.lunch.race1 = []; 
+          scheduleObj.lunch.race1.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'L2' :
-            if (!scheduleObj.lunch.slot2) scheduleObj.lunch.slot2 = []; 
-            scheduleObj.lunch.slot2.push(currIdToUserName[el.user_id.toString()]);
+            if (!scheduleObj.lunch.race2) scheduleObj.lunch.race2 = []; 
+            scheduleObj.lunch.race2.push(currIdToUserName[el.user_id.toString()]);
             break; 
         case 'L3' :
-          if (!scheduleObj.lunch.slot3) scheduleObj.lunch.slot3 = []; 
-          scheduleObj.lunch.slot3.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.lunch.race3) scheduleObj.lunch.race3 = []; 
+          scheduleObj.lunch.race3.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'L4' :
-          if (!scheduleObj.lunch.slot4) scheduleObj.lunch.slot4 = []; 
-          scheduleObj.lunch.slot4.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.lunch.race4) scheduleObj.lunch.race4 = []; 
+          scheduleObj.lunch.race4.push(currIdToUserName[el.user_id.toString()]);
           break;
 
         case 'D1' :
-          if (!scheduleObj.dinner.slot1) scheduleObj.dinner.slot1 = []; 
-          scheduleObj.dinner.slot1.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.dinner.race1) scheduleObj.dinner.race1 = []; 
+          scheduleObj.dinner.race1.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'D2' :
-            if (!scheduleObj.dinner.slot2) scheduleObj.dinner.slot2 = []; 
-            scheduleObj.dinner.slot2.push(currIdToUserName[el.user_id.toString()]);
+            if (!scheduleObj.dinner.race2) scheduleObj.dinner.race2 = []; 
+            scheduleObj.dinner.race2.push(currIdToUserName[el.user_id.toString()]);
             break; 
         case 'D3' :
-          if (!scheduleObj.dinner.slot3) scheduleObj.dinner.slot3 = []; 
-          scheduleObj.dinner.slot3.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.dinner.race3) scheduleObj.dinner.race3 = []; 
+          scheduleObj.dinner.race3.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'D4' :
-          if (!scheduleObj.dinner.slot4) scheduleObj.dinner.slot4 = []; 
-          scheduleObj.dinner.slot4.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.dinner.race4) scheduleObj.dinner.race4 = []; 
+          scheduleObj.dinner.race4.push(currIdToUserName[el.user_id.toString()]);
           break;
 
         case 'E1' :
-          if (!scheduleObj.evening.slot1) scheduleObj.evening.slot1 = []; 
-          scheduleObj.evening.slot1.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.evening.race1) scheduleObj.evening.race1 = []; 
+          scheduleObj.evening.race1.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'E2' :
-            if (!scheduleObj.evening.slot2) scheduleObj.evening.slot2 = []; 
-            scheduleObj.evening.slot2.push(currIdToUserName[el.user_id.toString()]);
+            if (!scheduleObj.evening.race2) scheduleObj.evening.race2 = []; 
+            scheduleObj.evening.race2.push(currIdToUserName[el.user_id.toString()]);
             break; 
         case 'E3' :
-          if (!scheduleObj.evening.slot3) scheduleObj.evening.slot3 = []; 
-          scheduleObj.evening.slot3.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.evening.race3) scheduleObj.evening.race3 = []; 
+          scheduleObj.evening.race3.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'E4' :
-          if (!scheduleObj.evening.slot4) scheduleObj.evening.slot4 = []; 
-          scheduleObj.evening.slot4.push(currIdToUserName[el.user_id.toString()]);
+          if (!scheduleObj.evening.race4) scheduleObj.evening.race4 = []; 
+          scheduleObj.evening.race4.push(currIdToUserName[el.user_id.toString()]);
           break;
       }
     })
