@@ -55,9 +55,9 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const [slots, setSlots] = useState<Slots>({});
   
-  const handleFetchSignups = () => {
-    dispatch(fetchSignups());
-  }
+  // const handleFetchSignups = () => {
+  //   dispatch(fetchSignups());
+  // }
 
   return (
     <>
@@ -320,7 +320,7 @@ export default function Home() {
                       <ErrorBoundary
                           fallbackRender={({ error }) => <Error error={error.message}/>}
                       > 
-                        <Signup slots={slots} handleFetchSignups={handleFetchSignups}/>
+                        <Signup />
                       </ErrorBoundary>
                     </div>
                   </div>
