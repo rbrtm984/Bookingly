@@ -1,25 +1,15 @@
-import React, { useEffect } from 'react';
-import CalendarAlt from '../Signup/Signup';
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSignups, selectSignups } from '../Signup/signupSlice'
+import { AppDispatch } from '../../app/store';
+import Signup from '../Signup/Signup';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import Error from '../Error/Error';
 import { Fragment } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
-import { useSelector, useDispatch } from 'react-redux';
 import { setLeaderboard } from '../../app/leaderboardSlice';
 
 interface User {
@@ -46,6 +36,8 @@ type LeaderboardEntry = {
 
 type UserNavigationItem = NavigationItem;
 
+type Slots = Record<string, number[]>;
+
 const user: User = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -70,7 +62,7 @@ function classNames(...classes: (string | null | undefined)[]): string {
 }
 
 export default function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     async function fetchLeaderboardData() {
       try {
@@ -106,16 +98,14 @@ export default function Home() {
     </div>
   ))
   console.log('LEADERARRAY AT ZERO', leaderArray[0])
+  const [slots, setSlots] = useState<Slots>({});
+  
+  // const handleFetchSignups = () => {
+  //   dispatch(fetchSignups());
+  // }
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <Popover as="header" className="bg-custom-turq pb-24">
           {({ open }) => (
@@ -380,7 +370,7 @@ export default function Home() {
     </div>    <div className="sm:flex"><div className='text-transparent'>..........................................................................................</div>
     <div><img src="https://fontmeme.com/permalink/231108/3ea8864e1dc4a58ff7cbeaf4386ab82f.png"/>
       {leaderArray[2]}</div>
-    </div>   <div className="sm:flex"><div className='text-transparent'>...................................................................................................................</div>
+    </div>   <div className="sm:flex"><div className='text-transparent'>...............................................................................................................</div>
     <div><img src="https://fontmeme.com/permalink/231108/f3fc949c9727b56ccc8b6d679300309c.png"/>
       {leaderArray[3]}</div>
     </div></div>
@@ -395,7 +385,11 @@ export default function Home() {
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
                     <div className="p-6">
-                        <CalendarAlt />
+                      <ErrorBoundary
+                          fallbackRender={({ error }) => <Error error={error.message}/>}
+                      > 
+                        <Signup />
+                      </ErrorBoundary>
                     </div>
                   </div>
                 </section>
