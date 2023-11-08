@@ -72,6 +72,7 @@ export default function Home() {
           {({ open }) => (
             <>
               <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                <div>TOP OF PAGE</div>
                 <div className="relative flex items-center justify-center py-5 lg:justify-between">
                 {/* Logo and Title container */}
                 <div className="flex items-center flex-shrink-0 lg:static">
@@ -311,7 +312,75 @@ export default function Home() {
           )}
         </Popover>
         <main className="-mt-24 pb-8">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8"><div className="flex items-center justify-center">
+  <a href="https://fontmeme.com/super-mario-font/">
+    <img
+      src="https://fontmeme.com/permalink/231107/f61ef88c7ff7cbfe64bf727f0bf8eb97.png"
+      alt="super-mario-font"
+    />
+  </a>
+</div>
+          <div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div><div className="sm:flex"><div className='text-transparent'>..........................</div>
+      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img
+          className="h-16 w-16"
+          src="https://cdn.marioversewiki.com/thumb/7/7c/WigglerDS.png/1200px-WigglerDS.png"
+          alt="Your Image Alt Text"
+      />
+      </div>
+      <div>
+        <h4 className="text-lg font-bold text-yellow-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">    <img
+      src="https://fontmeme.com/permalink/231108/1180504610391c97eddaadf802bb82e3.png"
+      alt="super-mario-font"
+    /></h4>
+        <p className="mt-1">
+          1
+        </p>
+      </div>
+    </div>
+  </div>    <div className="sm:flex"><div className='text-transparent'>...................................................</div>
+      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img
+          className="h-16 w-16"
+          src="https://cdn3.emoji.gg/emojis/1451_isabelle.png"
+          alt="Your Image Alt Text"
+      />
+      </div>
+      <div>
+        <h4 className="text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">BROOKE</h4>
+        <p className="mt-1">
+          2
+        </p>
+      </div>
+    </div>    <div className="sm:flex"><div className='text-transparent'>..........................................................................................</div>
+      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img
+          className="h-16 w-16"
+          src="https://mystickermania.com/cdn/stickers/games/mario-luigi-head-512x512.png"
+          alt="Your Image Alt Text"
+      />
+      </div>
+      <div>
+        <h4 className="text-lg font-bold text-orange-300 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">ROB</h4>
+        <p className="mt-1">
+          3
+        </p>
+      </div>
+    </div>   <div className="sm:flex"><div className='text-transparent'>...................................................................................................................</div>
+      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img
+          className="h-16 w-16"
+          src="https://icons.iconarchive.com/icons/yellowicon/game-stars/256/Mario-icon.png"
+          alt="Your Image Alt Text"
+      />
+      </div>
+      <div>
+        <h4 className="text-lg font-bold text-green-400 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">AAARON</h4>
+        <p className="mt-1">
+          4
+        </p>
+      </div>
+    </div></div>
             <h1 className="sr-only">Page title</h1>
             {/* Main 3 column grid */}
             <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
