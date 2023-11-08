@@ -1,5 +1,42 @@
 const db = require('../models/kartModel');
+
+//Helper function to create user id:username object from db query
+const userNameToIdFunc = (arr) => {
+  let idToUsername = {};
+  for (let i = 0; i < arr.length; i++) {
+    idToUsername[arr[i]['id']] = arr[i]['username']
+  };
+  return idToUsername;
+};
+
+
 const kartController = {};
+
+kartController.addRaceParticipant = async(req, res, next) => {
+  try {
+    const { slot, username } = req.body;
+
+    //Get race ID for selected race
+    const raceIdQuery = `SELECT * FROM races WHERE date = '2023-11-08' AND slot = $1`
+    const raceIdObj = await db.query(raceIdQuery, [slot]);
+    const raceID = raceIdObj.rows[0]['id'];
+
+    //Get user ID that corresponds to username
+    const userQuery = `SELECT id, username FROM users WHERE username = $1`
+    const userData = await db.query(userQuery, [username]);
+    const userID = userData.rows[0]['id'];
+
+    //Insert new participant into selected race
+    const addParticipantQuery = `INSERT INTO participants(race_id, user_id) VALUES ($1, $2);`
+    const addparticipant = await db.query(addParticipantQuery, [raceID, userID])
+    console.log(addparticipant);
+    res.locals.result = userID;
+    return next();
+
+  } catch (error) {
+    return next({ message: { err: 'error adding new participant' } });
+  }
+};
 
 kartController.getLeaderBoard = async(req, res, next) => {
   try {
@@ -17,7 +54,6 @@ kartController.getRaceSchedule = async (req, res, next) => {
   try {
 
     //Fetch race information, participants id, on given date
-
     const date = '2023-11-08';
     const scheduleQuery = `SELECT r.id as race_id, r.date, r.slot, r.winner, r.reporter, p.user_id
     FROM races r
@@ -28,15 +64,11 @@ kartController.getRaceSchedule = async (req, res, next) => {
     //Fetch user id and username
     const userQuery = `SELECT id, username FROM users`
     const userData = await db.query(userQuery);
-    
-    let idToUsername = {};
-    for (let i = 0; i < userData.rows.length; i++) {
-      idToUsername[userData.rows[i]['id']] = userData.rows[i]['username']
-    };
-
-    let scheduleObj = {};
+    //Helper function to convert db output to id:user object
+    let currIdToUserName = userNameToIdFunc(userData.rows);
 
     //Populate scheduleObj with races slots
+    let scheduleObj = {};
     scData.rows.forEach((el) => {
       if (el.slot[0] === "L" && !scheduleObj.lunch) scheduleObj.lunch = {};
       if (el.slot[0] === "D" && !scheduleObj.dinner) scheduleObj.dinner = {};
@@ -45,53 +77,53 @@ kartController.getRaceSchedule = async (req, res, next) => {
       switch (el.slot) {
         case 'L1' :
           if (!scheduleObj.lunch.slot1) scheduleObj.lunch.slot1 = []; 
-          scheduleObj.lunch.slot1.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.lunch.slot1.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'L2' :
             if (!scheduleObj.lunch.slot2) scheduleObj.lunch.slot2 = []; 
-            scheduleObj.lunch.slot2.push(idToUsername[el.user_id.toString()]);
+            scheduleObj.lunch.slot2.push(currIdToUserName[el.user_id.toString()]);
             break; 
         case 'L3' :
           if (!scheduleObj.lunch.slot3) scheduleObj.lunch.slot3 = []; 
-          scheduleObj.lunch.slot3.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.lunch.slot3.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'L4' :
           if (!scheduleObj.lunch.slot4) scheduleObj.lunch.slot4 = []; 
-          scheduleObj.lunch.slot4.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.lunch.slot4.push(currIdToUserName[el.user_id.toString()]);
           break;
 
         case 'D1' :
           if (!scheduleObj.dinner.slot1) scheduleObj.dinner.slot1 = []; 
-          scheduleObj.dinner.slot1.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.dinner.slot1.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'D2' :
             if (!scheduleObj.dinner.slot2) scheduleObj.dinner.slot2 = []; 
-            scheduleObj.dinner.slot2.push(idToUsername[el.user_id.toString()]);
+            scheduleObj.dinner.slot2.push(currIdToUserName[el.user_id.toString()]);
             break; 
         case 'D3' :
           if (!scheduleObj.dinner.slot3) scheduleObj.dinner.slot3 = []; 
-          scheduleObj.dinner.slot3.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.dinner.slot3.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'D4' :
           if (!scheduleObj.dinner.slot4) scheduleObj.dinner.slot4 = []; 
-          scheduleObj.dinner.slot4.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.dinner.slot4.push(currIdToUserName[el.user_id.toString()]);
           break;
 
         case 'E1' :
           if (!scheduleObj.evening.slot1) scheduleObj.evening.slot1 = []; 
-          scheduleObj.evening.slot1.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.evening.slot1.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'E2' :
             if (!scheduleObj.evening.slot2) scheduleObj.evening.slot2 = []; 
-            scheduleObj.evening.slot2.push(idToUsername[el.user_id.toString()]);
+            scheduleObj.evening.slot2.push(currIdToUserName[el.user_id.toString()]);
             break; 
         case 'E3' :
           if (!scheduleObj.evening.slot3) scheduleObj.evening.slot3 = []; 
-          scheduleObj.evening.slot3.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.evening.slot3.push(currIdToUserName[el.user_id.toString()]);
           break;
         case 'E4' :
           if (!scheduleObj.evening.slot4) scheduleObj.evening.slot4 = []; 
-          scheduleObj.evening.slot4.push(idToUsername[el.user_id.toString()]);
+          scheduleObj.evening.slot4.push(currIdToUserName[el.user_id.toString()]);
           break;
       }
     })

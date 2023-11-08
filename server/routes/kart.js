@@ -11,4 +11,8 @@ router.use('/leaderboard', kartController.getLeaderBoard, (req, res) => {
     res.status(200).json(res.locals.leaderBoard);
 });
 
+router.use('/addparticipant', kartController.addRaceParticipant, kartController.getRaceSchedule, (req, res) => {
+  res.status(200).json(res.locals.schedule);
+});
+
 module.exports = router;
