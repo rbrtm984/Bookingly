@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { fetchSignups, selectSignups } from './signupSlice'
+import { fetchSignups, selectSignups, signupForRace } from './signupSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { RootState } from '../../app/store';
@@ -34,8 +34,12 @@ const Signup = () => {
     dispatch(fetchSignups());
   }, []);
 
-  console.log('slots', slots);
-  console.log('slots.time', slots.time);
+  const handleSignUp = () => {
+    dispatch(signupForRace({ timeId: 'TESTTIME', slotId: 'TESTSLOT', racerId: 'TESTRACER'}));
+  }
+
+  // console.log('slots', slots);
+  // console.log('slots.time', slots.time);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -64,18 +68,20 @@ const Signup = () => {
                   {[...Array(maxRacersPerRace - racers.length)].map((_, index) => (
                     <dd key={`empty-${index}`} className="text-center bg-green-200 rounded-sm text-gray-400 italic">Available</dd>
                   ))}
-              </div>
+                  <div className="px-6 py-3 flex justify-center">
+                    <button
+                        type="button"
+                        className="ml-4 rounded-md bg-custom-turq px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        onClick={handleSignUp}
+                    >
+                      Let's Kart!
+                    </button>
+                  </div>
+                </div>
+                
             )) }
           </dl>
-          <div className="px-6 py-3 flex justify-center">
-            <button
-                type="button"
-                className="ml-4 rounded-md bg-custom-turq px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                // onClick={handleSignUp}
-            >
-              Let's Kart!
-            </button>
-          </div>
+
         </li>
       ))}
     </ul>
