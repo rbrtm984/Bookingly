@@ -34,8 +34,8 @@ const Signup = () => {
     dispatch(fetchSignups());
   }, []);
 
-  const handleSignUp = () => {
-    dispatch(signupForRace({ timeId: 'lunch', raceSlot: 'race2', username: 'angry_banana'}));
+  const handleSignUp = (timeId: string, raceSlot: string, username: string) => {
+    dispatch(signupForRace({ timeId, raceSlot, username }));
   }
 
   // console.log('slots', slots);
@@ -63,16 +63,29 @@ const Signup = () => {
                <div key={raceSlot} className="flex flex-col gap-y-2 py-3">
                   <dt className="text-gray-500 text-center">{raceSlot}</dt>
                   {racers.map((racer, racerIndex) => (
-                    <dd key={racerIndex} className="text-center bg-blue-500 rounded-sm text-gray-200">{racer}</dd>
+                    // <dd key={racerIndex} className="text-center rounded-sm text-gray-500">{racer}</dd>
+                      <button
+                                key={racerIndex}
+                                type="button"
+                                className="w-auto rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                      >
+                        {racer}
+                      </button> 
+                    ))}
+                  {[...Array(maxRacersPerRace - racers.length)].map((_, index) => (
+                    // <dd key={`empty-${index}`} className="text-center bg-green-200 rounded-sm text-gray-400 italic">Available</dd>
+                    <button
+                      type="button"
+                      className="w-auto rounded-full bg-green-200 px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    >
+                      Available
+                    </button>
                   ))}
-                    {/* {/* {[...Array(maxRacersPerRace - racers.length)].map((_, index) => (
-                      <dd key={`empty-${index}`} className="text-center bg-green-200 rounded-sm text-gray-400 italic">Available</dd>
-                    ))} */} */}
                   <div className="px-6 py-3 flex justify-center">
                     <button
                         type="button"
                         className="ml-4 rounded-md bg-custom-turq px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={handleSignUp}
+                        onClick={() => handleSignUp(timeId, raceSlot, 'Racing-Rita')}
                     >
                       Let's Kart!
                     </button>
@@ -91,46 +104,3 @@ const Signup = () => {
 }
 
 export default Signup;
-
-// {userIds.map((userId: string, index: number) => (
-//   <div key={userId} className="flex justify-between gap-x-4 py-3">
-//     <dt className="text-gray-500">Slot {index + 1}</dt>
-//     <dd className="text-gray-700">
-//       {/* Render user ID or additional details here */}
-//       {userId}
-//     </dd>
-//   </div>
-// ))}
-
-// {
-//   "lunch": {
-//       "slot1": [
-//           "angry_banana",
-//           "invincible_katya",
-//           "mushroom_mushroom"
-//       ],
-//       "slot3": [
-//           "monkey",
-//           "invincible_katya"
-//       ]
-//   },
-//   "dinner": {
-//       "slot3": [
-//           "angry_banana",
-//           "invincible_katya",
-//           "mushroom_mushroom"
-//       ]
-//   },
-//   "evening": {
-//       "slot2": [
-//           "mushroom_mushroom",
-//           "angry_banana",
-//           "very_angry_banana"
-//       ],
-//       "slot4": [
-//           "very_angry_banana",
-//           "invincible_katya",
-//           "monkey"
-//       ]
-//   }
-// }

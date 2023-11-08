@@ -92,11 +92,8 @@ const signupSlice = createSlice({
             .addCase(fetchSignups.fulfilled, (state, action) => {
                 state.loading = false;
                 const payload = action.payload as RaceSignup;
-                // console.log('payload', payload)
                 Object.entries(payload).forEach(([timeId, slots]) => {
                     const timeKey = timeId as string;
-                    // console.log('timeKey', timeKey);
-                    // console.log('slots', slots);
                     // Make sure we initialize the time in state if it doesn't exist
                     if (!state.time[timeKey]) {
                         state.time[timeKey] = {};
@@ -104,10 +101,6 @@ const signupSlice = createSlice({
                     // Now we can push races into the corresponding slot
                     // We use concat to avoid mutating the state directly
                     Object.entries(slots).forEach(([slotId, racerIds], index) => {
-                        // console.log('slotId', slotId);
-                        // console.log('racerIds', racerIds);
-                        // console.log('state.time', state.time)
-                        // console.log('state.time[timeId]', state.time[timeId])
                         state.time[timeKey][slotId] = racerIds;
                     })
                 });
@@ -115,6 +108,16 @@ const signupSlice = createSlice({
             .addCase(fetchSignups.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+            .addCase(signupForRace.fulfilled, (state, action) => {
+                const { timeId, raceSlot, username } = action.meta.arg;
+                if(!state.time[timeId]) {
+                    state.time[timeId] = {};
+                }
+                if(!state.time[timeId][raceSlot]) {
+                    state.time[timeId][raceSlot] = [];
+                }
+                state.time[timeId][raceSlot].push(username);
             })
     }
 })
