@@ -1,3 +1,4 @@
+const { createHtmlTagObject } = require('html-webpack-plugin');
 const db = require('../models/kartModel');
 
 //Helper function to create user id:username object from db query
@@ -14,11 +15,17 @@ const kartController = {};
 
 kartController.addRaceParticipant = async(req, res, next) => {
   try {
-    const { race, username } = req.body;
+    const { timeId, raceSlot, username } = req.body;
+
+    //Convert timeId and raceSlot to SQL formatted string 
+    const slot = timeId[0].toUpperCase().concat(raceSlot[raceSlot.length - 1]);
+    console.log('SLOT ', slot);
+    console.log('USERNAME ', username);
+
 
     //Get race ID for selected race
     const raceIdQuery = `SELECT * FROM races WHERE date = '2023-11-08' AND slot = $1`
-    const raceIdObj = await db.query(raceIdQuery, [race]);
+    const raceIdObj = await db.query(raceIdQuery, [slot]);
     const raceID = raceIdObj.rows[0]['id'];
 
     //Get user ID that corresponds to username
@@ -29,7 +36,6 @@ kartController.addRaceParticipant = async(req, res, next) => {
     //Insert new participant into selected race
     const addParticipantQuery = `INSERT INTO participants(race_id, user_id) VALUES ($1, $2);`
     const addparticipant = await db.query(addParticipantQuery, [raceID, userID])
-    console.log(addparticipant);
     res.locals.result = userID;
     return next();
 
@@ -67,7 +73,7 @@ kartController.getRaceSchedule = async (req, res, next) => {
     //Helper function to convert db output to id:user object
     let currIdToUserName = userNameToIdFunc(userData.rows);
 
-    //Populate scheduleObj with races
+    //Populate scheduleObj with races slots
     let scheduleObj = {};
     scData.rows.forEach((el) => {
       if (el.slot[0] === "L" && !scheduleObj.lunch) scheduleObj.lunch = {};
