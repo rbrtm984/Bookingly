@@ -35,7 +35,7 @@ const Signup = () => {
   }, []);
 
   const handleSignUp = () => {
-    dispatch(signupForRace({ timeId: 'TESTTIME', slotId: 'TESTSLOT', racerId: 'TESTRACER'}));
+    dispatch(signupForRace({ timeId: 'lunch', raceSlot: 'race2', username: 'angry_banana'}));
   }
 
   // console.log('slots', slots);
