@@ -3,6 +3,7 @@ const kartController = require('../controllers/kartController');
 const router = express.Router();
 
 router.use('/schedule', kartController.getRaceSchedule, (req, res) => {
+    console.log('')
     res.status(200).json(res.locals.schedule);
 });
 
