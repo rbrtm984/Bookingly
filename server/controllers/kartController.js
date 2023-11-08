@@ -15,7 +15,6 @@ const kartController = {};
 kartController.addRaceParticipant = async(req, res, next) => {
   try {
     const { slot, username } = req.body;
-
     //Get race ID for selected race
     const raceIdQuery = `SELECT * FROM races WHERE date = '2023-11-08' AND slot = $1`
     const raceIdObj = await db.query(raceIdQuery, [slot]);
