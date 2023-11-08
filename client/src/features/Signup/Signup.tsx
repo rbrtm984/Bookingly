@@ -85,7 +85,7 @@ const Signup = () => {
                     <button
                         type="button"
                         className="ml-4 rounded-md bg-custom-turq px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => handleSignUp(timeId, raceSlot, 'Racing-Rita')}
+                        onClick={() => handleSignUp(timeId, raceSlot, 'Racing_Rita')}
                     >
                       Let's Kart!
                     </button>
