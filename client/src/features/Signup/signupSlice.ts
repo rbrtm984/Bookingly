@@ -58,9 +58,10 @@ export const fetchSignups = createAsyncThunk(
 );
 
 export const signupForRace = createAsyncThunk(
-    'kart/addparticipant',
-    async ({ timeId, slotId, racerId }: { timeId: string, slotId: string, racerId: string }, { rejectWithValue }) => {
+    'kart/signup',
+    async ({ race, username }: { race: string, username: string }, { rejectWithValue }) => {
         try {
+            const body = { race, username };
             const response = await fetch(`/kart/schedule/${timeId}/${slotId}/${racerId}`, { method: 'POST' });
             if (!response.ok) throw new Error('Network response was not ok');
             const data: RaceSignup = await response.json();
