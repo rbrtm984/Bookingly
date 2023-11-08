@@ -18,9 +18,9 @@ module.exports = {
         },
         port: 8080,
         proxy: {
-            '/api': {
+            '/kart': {
             target: 'http://localhost:3000',
-            pathRewrite: { '^/api': '' },
+            // pathRewrite: { '^/api': '' },
             changeOrigin: true
     }}},
     module: {

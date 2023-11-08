@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CalendarAlt from '../Signup/Signup';
 /*
   This example requires some changes to your config:
@@ -19,6 +19,9 @@ import { Menu, Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setLeaderboard } from '../../app/leaderboardSlice';
+
 interface User {
     name: string;
     email: string;
@@ -30,6 +33,16 @@ name: string;
 href: string;
 current: boolean;
 }
+
+type RootState = {
+  leaderboard: any;
+}
+
+type LeaderboardEntry = {
+  id: number;
+  username: string;
+  avatar: string;
+};
 
 type UserNavigationItem = NavigationItem;
 
@@ -57,6 +70,25 @@ function classNames(...classes: (string | null | undefined)[]): string {
 }
 
 export default function Home() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function fetchLeaderboardData() {
+      try {
+        const response = await fetch('/kart/leaderboard'); 
+        const data: LeaderboardEntry[] = await response.json();
+        dispatch(setLeaderboard(data));
+        console.log('DATA FROM useEffect', data);
+        console.log('FIRST DATA OBJECT',data[0].username)
+      } catch (error) {
+        console.error('Error fetching leaderboard data:', error);
+      }
+    }
+
+    fetchLeaderboardData();
+  }, [dispatch]);
+
+  const leaderboardData = useSelector((state: RootState) => state.leaderboard.data);
+  console.log('LEADERBOARDDATA', leaderboardData)
   return (
     <>
       {/*
@@ -316,22 +348,41 @@ export default function Home() {
   <a href="https://fontmeme.com/super-mario-font/">
     <img
       src="https://fontmeme.com/permalink/231107/f61ef88c7ff7cbfe64bf727f0bf8eb97.png"
-      alt="super-mario-font"
+      alt="super-mario-font-displaying-LEADERBOARD"
     />
   </a>
 </div>
-          <div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div><div className="sm:flex"><div className='text-transparent'>..........................</div>
+//testing area<div className="sm:flex">
+  {leaderboardData.slice(0, 4).map((entry: any, index: any) => (
+    <div>...
+    <div key={entry.id} className={`mb-4 flex-shrink-0 sm:mb-0 sm:mr-4 custom-class-${index}`}>
+      <img
+        className="h-16 w-16"
+        src={entry.avatar}
+        alt="Avatar"
+      />
+      <div>
+        <h4 className={`text-lg font-bold text-orange-300 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg custom-text-class-${index}`}>
+        <div>{entry.username}</div>
+        </h4>
+        <p className="mt-1">{index + 1}</p>
+      </div>
+    </div>
+    </div>
+  ))}
+</div>
+ //end test <div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div><div className="sm:flex"><div className='text-transparent'>..........................</div>
       <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
       <img
           className="h-16 w-16"
           src="https://cdn.marioversewiki.com/thumb/7/7c/WigglerDS.png/1200px-WigglerDS.png"
-          alt="Your Image Alt Text"
+          alt="AVATAR FOR FIRST"
       />
       </div>
       <div>
-        <h4 className="text-lg font-bold text-yellow-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">    <img
-      src="https://fontmeme.com/permalink/231108/1180504610391c97eddaadf802bb82e3.png"
-      alt="super-mario-font"
+        <h4 className="text-lg font-bold text-yellow-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
+      src="https://fontmeme.com/permalink/231108/bb6825851b44d6eb2c45f88f11079173.png"
+      alt="USERNAME FOR FIRST"
     /></h4>
         <p className="mt-1">
           1
@@ -347,7 +398,10 @@ export default function Home() {
       />
       </div>
       <div>
-        <h4 className="text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">BROOKE</h4>
+        <h4 className="text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
+      src="https://fontmeme.com/permalink/231108/e0751a56795e0439ce6498facc185ba6.png"
+      alt="super-mario-font"
+    /></h4>
         <p className="mt-1">
           2
         </p>
@@ -357,11 +411,14 @@ export default function Home() {
       <img
           className="h-16 w-16"
           src="https://mystickermania.com/cdn/stickers/games/mario-luigi-head-512x512.png"
-          alt="Your Image Alt Text"
+          alt="AVATAR FOR THIRD PLACE"
       />
       </div>
       <div>
-        <h4 className="text-lg font-bold text-orange-300 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">ROB</h4>
+        <h4 className="text-lg font-bold text-orange-300 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
+      src="https://fontmeme.com/permalink/231108/0303aba1f1aa7e2e1a8ace5decfa390c.png"
+      alt="USERNAME FOR THIRD PLACE"
+    /></h4>
         <p className="mt-1">
           3
         </p>
@@ -375,7 +432,10 @@ export default function Home() {
       />
       </div>
       <div>
-        <h4 className="text-lg font-bold text-green-400 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg">AAARON</h4>
+        <h4 className="text-lg font-bold text-green-400 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
+      src="https://fontmeme.com/permalink/231108/1180504610391c97eddaadf802bb82e3.png"
+      alt="super-mario-font"
+    /></h4>
         <p className="mt-1">
           4
         </p>
