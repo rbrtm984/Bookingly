@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSignups, selectSignups } from '../Signup/signupSlice'
 import { AppDispatch } from '../../app/store';
@@ -10,7 +10,7 @@ import { Menu, Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
-
+import { setLeaderboard } from '../../app/leaderboardSlice';
 
 interface User {
     name: string;
@@ -23,6 +23,16 @@ name: string;
 href: string;
 current: boolean;
 }
+
+type RootState = {
+  leaderboard: any;
+}
+
+type LeaderboardEntry = {
+  id: number;
+  username: string;
+  avatar: string;
+};
 
 type UserNavigationItem = NavigationItem;
 
@@ -53,6 +63,41 @@ function classNames(...classes: (string | null | undefined)[]): string {
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    async function fetchLeaderboardData() {
+      try {
+        const response = await fetch('/kart/leaderboard'); 
+        const data: LeaderboardEntry[] = await response.json();
+        dispatch(setLeaderboard(data));
+        console.log('DATA FROM useEffect', data);
+        console.log('FIRST DATA OBJECT',data[0].username)
+      } catch (error) {
+        console.error('Error fetching leaderboard data:', error);
+      }
+    }
+
+    fetchLeaderboardData();
+  }, [dispatch]);
+
+  const leaderboardData = useSelector((state: RootState) => state.leaderboard.data);
+  console.log('LEADERBOARDDATA', leaderboardData)
+
+  const leaderArray:any = leaderboardData.slice(0, 4).map((entry: any, index: any) => (
+    <div className="sm:flex"><div className='text-transparent' id={index}></div>
+      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img
+          className="h-16 w-16"
+          src={entry.avatar}
+      />
+      </div>
+      <div>
+        <h4 className='text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg'>{entry.username}</h4>
+        <p className="mt-1">
+        </p>
+      </div>
+    </div>
+  ))
+  console.log('LEADERARRAY AT ZERO', leaderArray[0])
   const [slots, setSlots] = useState<Slots>({});
   
   // const handleFetchSignups = () => {
@@ -66,6 +111,7 @@ export default function Home() {
           {({ open }) => (
             <>
               <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                <div>TOP OF PAGE</div>
                 <div className="relative flex items-center justify-center py-5 lg:justify-between">
                 {/* Logo and Title container */}
                 <div className="flex items-center flex-shrink-0 lg:static">
@@ -305,7 +351,29 @@ export default function Home() {
           )}
         </Popover>
         <main className="-mt-24 pb-8">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8"><div className="flex items-center justify-center">
+  <a href="https://fontmeme.com/super-mario-font/">
+    <img
+      src="https://fontmeme.com/permalink/231107/f61ef88c7ff7cbfe64bf727f0bf8eb97.png"
+      alt="super-mario-font-displaying-LEADERBOARD"
+    />
+  </a>
+</div>
+<div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div>
+  <div className="sm:flex"><div className='text-transparent'>..........................</div>
+  <div><img src="https://fontmeme.com/permalink/231108/15fbbb0c2da31243b209c76da134678e.png"/>
+  {leaderArray[0]}</div>
+    </div>
+  </div>    <div className="sm:flex"><div className='text-transparent'>...................................................</div>
+  <div><img src="https://fontmeme.com/permalink/231108/5e7d5f3d27c0457e431722fca91b8b3a.png"/>
+    {leaderArray[1]}</div>
+    </div>    <div className="sm:flex"><div className='text-transparent'>..........................................................................................</div>
+    <div><img src="https://fontmeme.com/permalink/231108/3ea8864e1dc4a58ff7cbeaf4386ab82f.png"/>
+      {leaderArray[2]}</div>
+    </div>   <div className="sm:flex"><div className='text-transparent'>...............................................................................................................</div>
+    <div><img src="https://fontmeme.com/permalink/231108/f3fc949c9727b56ccc8b6d679300309c.png"/>
+      {leaderArray[3]}</div>
+    </div></div>
             <h1 className="sr-only">Page title</h1>
             {/* Main 3 column grid */}
             <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
