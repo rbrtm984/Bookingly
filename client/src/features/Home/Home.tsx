@@ -54,6 +54,7 @@ function classNames(...classes: (string | null | undefined)[]): string {
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const [slots, setSlots] = useState<Slots>({});
+  
   const handleFetchSignups = () => {
     dispatch(fetchSignups());
   }

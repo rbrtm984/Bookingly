@@ -13,10 +13,8 @@ export const fetchSignups = createAsyncThunk(
     async ( _ , { rejectWithValue }) => {
         try {
             const response = await fetch('/kart/schedule');
-            console.log('response', response);
             if (!response.ok) throw new Error('Network response was not ok');
-            const data: RaceSignup[] = await response.json();
-            console.log('this is the data returned in fetchSignups', data);
+            const data: RaceSignup = await response.json();
             return data;
         } catch (error: any) {
             return rejectWithValue(error.message);
@@ -37,14 +35,21 @@ const signupSlice = createSlice({
             })
             .addCase(fetchSignups.fulfilled, (state, action) => {
                 state.loading = false;
-                action.payload.forEach((signup) => {
-                    if(state.slots[signup.raceId]){
-                        state.slots[signup.raceId].push(signup.userId);
-                    } else {
-                        state.slots[signup.raceId] = [signup.userId];
+                const payload = action.payload;
+                Object.entries(payload).forEach(([raceId, userIds]) => {
+                    // Make sure we initialize the slot if it doesn't exist
+                    if (!state.slots[raceId]) {
+                        state.slots[raceId] = [];
                     }
-                })
-            })
+                    // Now we can push userIds into the corresponding slot
+                    // We use concat to avoid mutating the state directly
+                    if (userIds) {
+                        for (let slot in userIds) {
+                            state.slots[raceId] = state.slots[raceId].concat(userIds[slot])
+                        }
+                    }
+                });
+            })            
             .addCase(fetchSignups.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;

@@ -36,61 +36,29 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-const Signup: React.FC<SignupProps> = ({ slots, handleFetchSignups }) => {
+const Signup: React.FC<SignupProps> = ({ /*slots,*/ handleFetchSignups }) => {
   const dispatch = useDispatch<AppDispatch>();
-  // const slots = useSelector(selectSignups);
-  console.log(slots)
-  // const slots = {
-  //   'race1': ['Katya', 'Rob', 'Brooke', 'Aaron'],
-  //   'race2': ['Rita', 'Sohum', 'James', 'Chris'],
-  //   'race3': ['Jake', 'Tommy', 'PK', 'Edmund']
-  // }
-  const lunchImage = 'https://i.imgur.com/FPv5gVR.png'; // URL to your lunch image
-  const dinnerImage = 'https://i.imgur.com/DCIgFpn.png'; // URL to your dinner image
-  const eveningImage = 'https://i.imgur.com/WiwY0bi.png'; // URL to your evening image
+  const slots = useSelector(selectSignups);
 
-  let images = [lunchImage, dinnerImage, eveningImage];
+  let images = ['https://i.imgur.com/FPv5gVR.png', 'https://i.imgur.com/DCIgFpn.png', 'https://i.imgur.com/WiwY0bi.png'];
 
   const loading = useSelector((state: RootState) => state.signups.loading);
   const error = useSelector((state: RootState) => state.signups.error);
 
   useEffect(() => {
     dispatch(fetchSignups());
-  }, [dispatch]);
+  }, []);
 
-  // const handleFetchSignups = () => {
-  //   dispatch(fetchSignups());
-  // }
-
-  // const hasSlots = slots && Object.keys(slots).length > 0;
+  console.log(slots);
+  console.log('slots.slots', slots.slots);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-    // Check if slots is an object and not null
-  const hasSlots = slots && typeof slots === 'object' && Object.keys(slots).length > 0;
-
-  // If there's an expected condition (like no slots), return a message or loading state
-  // This will not trigger the Error Boundary
-  if (!hasSlots) {
-    return (
-      <div>
-        <p>No data available. Please fetch the schedule.</p>
-        <button
-          type="button"
-          // ... your button styling
-          onClick={handleFetchSignups}
-        >
-          Fetch schedule 0__0
-        </button>
-      </div>
-    );
-  }
-
   return (
   <div>
     <ul  id="Signup" role="list" className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
-      {Object.entries(slots).map(([raceId, userIds], index) => (
+      {Object.entries(slots.slots).map(([raceId, userIds], index) => (
         <li key={raceId} className="overflow-hidden rounded-xl border border-gray-200">
           <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-neutral-100 p-6">
             <img
@@ -100,15 +68,9 @@ const Signup: React.FC<SignupProps> = ({ slots, handleFetchSignups }) => {
               />
           </div>
           <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            {userIds.map((userId: number, index: number) => (
-              <div key={userId} className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Slot {index + 1}</dt>
-                <dd className="text-gray-700">
-                  {/* Render user ID or additional details here */}
-                  {userId}
-                </dd>
-              </div>
-            ))}
+          {Array.isArray(userIds) && userIds.map((userId, i) => (
+            <li key={i}>{userId.toString()}</li>
+          ))}
           </dl>
           <div className="px-6 py-3 flex justify-start">
             <button
@@ -128,3 +90,13 @@ const Signup: React.FC<SignupProps> = ({ slots, handleFetchSignups }) => {
 }
 
 export default Signup;
+
+// {userIds.map((userId: string, index: number) => (
+//   <div key={userId} className="flex justify-between gap-x-4 py-3">
+//     <dt className="text-gray-500">Slot {index + 1}</dt>
+//     <dd className="text-gray-700">
+//       {/* Render user ID or additional details here */}
+//       {userId}
+//     </dd>
+//   </div>
+// ))}
