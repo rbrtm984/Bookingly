@@ -89,6 +89,23 @@ export default function Home() {
 
   const leaderboardData = useSelector((state: RootState) => state.leaderboard.data);
   console.log('LEADERBOARDDATA', leaderboardData)
+
+  const leaderArray:any = leaderboardData.slice(0, 4).map((entry: any, index: any) => (
+    <div className="sm:flex"><div className='text-transparent' id={index}></div>
+      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img
+          className="h-16 w-16"
+          src={entry.avatar}
+      />
+      </div>
+      <div>
+        <h4 className='text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg'>{entry.username}</h4>
+        <p className="mt-1">
+        </p>
+      </div>
+    </div>
+  ))
+  console.log('LEADERARRAY AT ZERO', leaderArray[0])
   return (
     <>
       {/*
@@ -352,94 +369,20 @@ export default function Home() {
     />
   </a>
 </div>
-//testing area<div className="sm:flex">
-  {leaderboardData.slice(0, 4).map((entry: any, index: any) => (
-    <div>...
-    <div key={entry.id} className={`mb-4 flex-shrink-0 sm:mb-0 sm:mr-4 custom-class-${index}`}>
-      <img
-        className="h-16 w-16"
-        src={entry.avatar}
-        alt="Avatar"
-      />
-      <div>
-        <h4 className={`text-lg font-bold text-orange-300 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg custom-text-class-${index}`}>
-        <div>{entry.username}</div>
-        </h4>
-        <p className="mt-1">{index + 1}</p>
-      </div>
-    </div>
-    </div>
-  ))}
-</div>
- //end test <div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div><div className="sm:flex"><div className='text-transparent'>..........................</div>
-      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-      <img
-          className="h-16 w-16"
-          src="https://cdn.marioversewiki.com/thumb/7/7c/WigglerDS.png/1200px-WigglerDS.png"
-          alt="AVATAR FOR FIRST"
-      />
-      </div>
-      <div>
-        <h4 className="text-lg font-bold text-yellow-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
-      src="https://fontmeme.com/permalink/231108/bb6825851b44d6eb2c45f88f11079173.png"
-      alt="USERNAME FOR FIRST"
-    /></h4>
-        <p className="mt-1">
-          1
-        </p>
-      </div>
+<div className="bg-[url('https://media.istockphoto.com/id/1255877450/vector/empty-road-semi-flat-vector-illustration-top-view.jpg?s=612x612&w=0&k=20&c=42BF0OIIb5CUihFVeY_STQNI5FkKILMkez0kGaaik78=')] bg-cover bg-center text-white p-4 text-stroke text-stroke-black"><div>
+  <div className="sm:flex"><div className='text-transparent'>..........................</div>
+  <div><img src="https://fontmeme.com/permalink/231108/15fbbb0c2da31243b209c76da134678e.png"/>
+  {leaderArray[0]}</div>
     </div>
   </div>    <div className="sm:flex"><div className='text-transparent'>...................................................</div>
-      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-      <img
-          className="h-16 w-16"
-          src="https://cdn3.emoji.gg/emojis/1451_isabelle.png"
-          alt="Your Image Alt Text"
-      />
-      </div>
-      <div>
-        <h4 className="text-lg font-bold text-blue-200 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
-      src="https://fontmeme.com/permalink/231108/e0751a56795e0439ce6498facc185ba6.png"
-      alt="super-mario-font"
-    /></h4>
-        <p className="mt-1">
-          2
-        </p>
-      </div>
+  <div><img src="https://fontmeme.com/permalink/231108/5e7d5f3d27c0457e431722fca91b8b3a.png"/>
+    {leaderArray[1]}</div>
     </div>    <div className="sm:flex"><div className='text-transparent'>..........................................................................................</div>
-      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-      <img
-          className="h-16 w-16"
-          src="https://mystickermania.com/cdn/stickers/games/mario-luigi-head-512x512.png"
-          alt="AVATAR FOR THIRD PLACE"
-      />
-      </div>
-      <div>
-        <h4 className="text-lg font-bold text-orange-300 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
-      src="https://fontmeme.com/permalink/231108/0303aba1f1aa7e2e1a8ace5decfa390c.png"
-      alt="USERNAME FOR THIRD PLACE"
-    /></h4>
-        <p className="mt-1">
-          3
-        </p>
-      </div>
+    <div><img src="https://fontmeme.com/permalink/231108/3ea8864e1dc4a58ff7cbeaf4386ab82f.png"/>
+      {leaderArray[2]}</div>
     </div>   <div className="sm:flex"><div className='text-transparent'>...................................................................................................................</div>
-      <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-      <img
-          className="h-16 w-16"
-          src="https://icons.iconarchive.com/icons/yellowicon/game-stars/256/Mario-icon.png"
-          alt="Your Image Alt Text"
-      />
-      </div>
-      <div>
-        <h4 className="text-lg font-bold text-green-400 text-stroke text-stroke-black text-shadow bg-black bg-opacity-70 p-4 rounded-lg"><img
-      src="https://fontmeme.com/permalink/231108/1180504610391c97eddaadf802bb82e3.png"
-      alt="super-mario-font"
-    /></h4>
-        <p className="mt-1">
-          4
-        </p>
-      </div>
+    <div><img src="https://fontmeme.com/permalink/231108/f3fc949c9727b56ccc8b6d679300309c.png"/>
+      {leaderArray[3]}</div>
     </div></div>
             <h1 className="sr-only">Page title</h1>
             {/* Main 3 column grid */}
