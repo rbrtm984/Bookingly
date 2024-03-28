@@ -1,7 +1,5 @@
-# reinforcement
+# Bookingly
 
-Database - RDS - Slack for connection info
+A Mario Kart booking app for reserving race slots with friends.
 
-Tables exist corresponding to ideas from initial brainstorm. 
-
-
+Build with React, TypeScript, Redux, TailwindCSS and JWT.
